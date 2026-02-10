@@ -1,33 +1,44 @@
 import { useState, useEffect } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import logo from "@/assets/logo.png";
 
 export const AgeVerification = () => {
   const [isOpen, setIsOpen] = useState(false);
 
+  // Always open the dialog on component mount
   useEffect(() => {
-    const hasVerified = localStorage.getItem("ageVerified");
-    if (!hasVerified) {
-      setIsOpen(true);
-    }
+    setIsOpen(true);
   }, []);
 
+  // Handle verification
   const handleVerify = (isOver18: boolean) => {
     if (isOver18) {
-      localStorage.setItem("ageVerified", "true");
-      setIsOpen(false);
+      setIsOpen(false); // Close dialog
     } else {
-      window.location.href = "https://www.google.com";
+      window.location.href = "https://www.google.com"; // Redirect if under 18
     }
   };
 
   return (
     <Dialog open={isOpen} onOpenChange={() => {}}>
-      <DialogContent className="sm:max-w-md" onInteractOutside={(e) => e.preventDefault()}>
+      <DialogContent
+        className="sm:max-w-md"
+        onInteractOutside={(e) => e.preventDefault()}
+      >
         <DialogHeader>
           <div className="flex justify-center mb-4">
-            <img src={logo} alt="Gauteng Breweries" className="h-24 w-auto" />
+            <img
+              src={logo}
+              alt="Gauteng Breweries"
+              className="h-24 w-auto"
+            />
           </div>
           <DialogTitle className="text-2xl font-black text-center">
             <span className="text-primary">AGE</span> VERIFICATION
